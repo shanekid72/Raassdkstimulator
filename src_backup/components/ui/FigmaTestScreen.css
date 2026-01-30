@@ -1,0 +1,393 @@
+/* CSS from Figma Export */
+
+.screen-container {
+    position: relative;
+    /* Changed from absolute to relative for the container */
+    width: 393px;
+    height: 852px;
+    background: #F9FAFA;
+    overflow: hidden;
+    /* Ensure content stays within device bounds */
+    margin: 0 auto;
+    /* Center it */
+    border: 1px solid #ccc;
+    /* Visual boundary */
+}
+
+/* Rectangle 40314 */
+.rectangle-background {
+    position: absolute;
+    width: 393px;
+    height: 496px;
+    left: 1px;
+    top: 54px;
+    background: #F9FAFA;
+    border-radius: 0px;
+}
+
+/* Service Background */
+.service-background {
+    position: absolute;
+    width: 348px;
+    height: 351px;
+    left: 24px;
+    top: 155px;
+    background: #FFFFFF;
+    box-shadow: 1px 0px 5px rgba(49, 50, 51, 0.09);
+    border-radius: 10px;
+}
+
+/* Exchange details */
+.exchange-details {
+    position: absolute;
+    width: 313.76px;
+    height: 190.53px;
+    left: 37.92px;
+    top: 187px;
+}
+
+/* Amount sent */
+.amount-sent {
+    position: absolute;
+    width: 217.91px;
+    height: 29.36px;
+    left: 37.92px;
+    top: 211.6px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    display: flex;
+    align-items: center;
+    color: #242424;
+}
+
+/* Currency container */
+.currency-container-aed {
+    position: absolute;
+    width: 65.69px;
+    height: 22.02px;
+    left: 285.99px;
+    top: 214.75px;
+}
+
+.currency-text-aed {
+    position: absolute;
+    width: 32.32px;
+    height: 20.97px;
+    left: 319.36px;
+    top: 215.8px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    color: #242424;
+}
+
+/* United Arab Emirates Flag Placeholder */
+.flag-uae {
+    position: absolute;
+    width: 25.02px;
+    height: 18.88px;
+    left: 285.99px;
+    top: 214.75px;
+}
+
+/* Vectors for UAE Flag */
+.uae-green {
+    position: absolute;
+    left: 6.02%;
+    right: -6.59%;
+    top: 0%;
+    bottom: 66.67%;
+    background: #00732F;
+}
+
+.uae-white {
+    position: absolute;
+    left: 6.02%;
+    right: -6.59%;
+    top: 33.33%;
+    bottom: 33.33%;
+    background: #FFFFFF;
+}
+
+.uae-black {
+    position: absolute;
+    left: 6.02%;
+    right: -6.59%;
+    top: 66.67%;
+    bottom: 0%;
+    background: #000000;
+}
+
+.uae-red {
+    position: absolute;
+    left: 6.02%;
+    right: 59.41%;
+    top: 0%;
+    bottom: 0%;
+    background: #FF0000;
+}
+
+/* Amount received */
+.amount-received {
+    position: absolute;
+    width: 217.91px;
+    height: 29.36px;
+    left: 37.92px;
+    top: 348.17px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    display: flex;
+    align-items: center;
+    color: #242424;
+}
+
+/* Currency container PHP */
+.currency-container-php {
+    position: absolute;
+    width: 75.07px;
+    height: 21.68px;
+    left: 276.05px;
+    top: 351.32px;
+}
+
+.currency-text-php {
+    position: absolute;
+    width: 32.81px;
+    height: 21px;
+    left: 306.38px;
+    top: 352px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+    color: #242424;
+}
+
+/* Philippines Flag Placeholder */
+.flag-php {
+    position: absolute;
+    width: 25.02px;
+    height: 18.88px;
+    left: 276.05px;
+    top: 351.32px;
+}
+
+/* Vectors for PHP Flag */
+.php-orange {
+    position: absolute;
+    left: 5.79%;
+    right: -6.36%;
+    top: 0%;
+    bottom: 66.67%;
+    background: #FF9933;
+}
+
+.php-black {
+    position: absolute;
+    left: 5.79%;
+    right: -6.36%;
+    top: 33.33%;
+    bottom: 33.33%;
+    background: #000000;
+}
+
+.php-green {
+    position: absolute;
+    left: 5.79%;
+    right: -6.36%;
+    top: 66.67%;
+    bottom: 0%;
+    background: #128807;
+}
+
+/* Currency icon (Image placeholder) */
+.currency-icon {
+    position: absolute;
+    left: 3.8%;
+    right: -11.7%;
+    top: 3.62%;
+    bottom: 1.01%;
+    /* background: url(image.png); -- Handle in React */
+    background-size: cover;
+    border: 1px solid #000000;
+}
+
+/* Divider */
+.divider {
+    box-sizing: border-box;
+    position: absolute;
+    width: 308.62px;
+    height: 1.05px;
+    left: 40.9px;
+    top: 285.58px;
+    border: 1px solid #F1F3FF;
+}
+
+/* Exchange rate container */
+.exchange-rate-mask {
+    position: absolute;
+    left: 137.14px;
+    top: 273px;
+    width: 139.71px;
+    height: 27.26px;
+}
+
+.exchange-rate-bg {
+    position: absolute;
+    left: 34.9%;
+    right: 29.55%;
+    top: 32.04%;
+    bottom: 64.76%;
+    /* Note: The percentages in the mask seem odd for the container size, 
+     using the pixel values from "Exchange rate container" creates a box.
+     Applying style to a child. */
+    width: 100%;
+    height: 100%;
+    background: #F1F3FF;
+    border-radius: 24.5px;
+}
+
+.exchange-rate-text {
+    position: absolute;
+    width: 118.86px;
+    height: 20.97px;
+    left: 147.57px;
+    top: 276.15px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #4967FF;
+    z-index: 10;
+}
+
+/* Check exchange rates labels */
+.you-send-label {
+    position: absolute;
+    width: 94.46px;
+    height: 18px;
+    left: 37.92px;
+    top: 187px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17px;
+    color: #787878;
+}
+
+.they-receive-label {
+    position: absolute;
+    width: 110.37px;
+    height: 17px;
+    left: 37.92px;
+    top: 324px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 17px;
+    color: #787878;
+}
+
+/* CTA */
+.cta-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 314.19px;
+    height: 54px;
+    left: calc(50% - 314.19px/2 - 1.48px);
+    top: 418px;
+}
+
+.cta-button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 16px;
+    gap: 10px;
+    width: 314.19px;
+    height: 54px;
+    background: #4967FF;
+    border-radius: 200px;
+}
+
+.btn-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.cta-text {
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.cta-text-bold {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+}
+
+/* Promo Banner */
+.promo-container {
+    position: absolute;
+    width: 350px;
+    height: 38px;
+    left: 23px;
+    top: 91px;
+    background: #FFFFFF;
+    border-radius: 6px;
+}
+
+.promo-text {
+    position: absolute;
+    width: 240px;
+    height: 24px;
+    left: 91px;
+    /* Relative to something? Figma absolute is 91px from screen left probably */
+    top: 98px;
+    font-family: 'Inter', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    text-align: center;
+    color: #4967FF;
+}
+
+/* Lowest rate guarantee vectors (Groups) */
+/* Simplifying vectors for the test screen as simple colored blocks for layout check */
+.promo-icon-group {
+    position: absolute;
+    left: 64px;
+    top: 98px;
+    width: 24px;
+    height: 24px;
+    background: #e0e0e0;
+    /* Placeholder for complex vector group */
+}
