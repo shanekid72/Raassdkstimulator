@@ -5,13 +5,15 @@ import { Button } from "@/app/ui/Button";
 import { Header } from "@/app/ui/Header";
 import { Card, CardContent } from "@/app/ui/Card";
 import { ChevronRight } from "lucide-react";
+import { RecipientDraft } from "@/app/simulator/SimulatorStore";
 
 interface PersonalDetailsScreenProps {
     onBack: () => void;
     onNext: () => void;
+    onSubmitDraft: (partial: Partial<RecipientDraft>) => void;
 }
 
-export default function PersonalDetailsScreen({ onBack, onNext }: PersonalDetailsScreenProps) {
+export default function PersonalDetailsScreen({ onBack, onNext, onSubmitDraft }: PersonalDetailsScreenProps) {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [mobile, setMobile] = useState("788977899");
@@ -27,13 +29,30 @@ export default function PersonalDetailsScreen({ onBack, onNext }: PersonalDetail
                     <CardContent className="space-y-6 pt-6">
                         <div className="space-y-4">
                             <h3 className="text-sm font-semibold text-foreground">Name</h3>
-                            <Input label="Recipient First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} />
-                            <Input label="Recipient Last name" value={lastName} onChange={(e) => setLastName(e.target.value)} />
+                            <Input
+                                id="firstName"
+                                label="Recipient First Name"
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                                nextFieldId="lastName"
+                            />
+                            <Input
+                                id="lastName"
+                                label="Recipient Last name"
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
+                                nextFieldId="mobile"
+                            />
                         </div>
 
                         <div className="space-y-4">
                             <h3 className="text-sm font-semibold text-foreground">Contact Information</h3>
-                            <Input label="Recipient Mobile Number" value={mobile} onChange={(e) => setMobile(e.target.value)} />
+                            <Input
+                                id="mobile"
+                                label="Recipient Mobile Number"
+                                value={mobile}
+                                onChange={(e) => setMobile(e.target.value)}
+                            />
                         </div>
 
                         <div className="space-y-4">
@@ -69,7 +88,10 @@ export default function PersonalDetailsScreen({ onBack, onNext }: PersonalDetail
                             className="w-full"
                             size="lg"
                             rightIcon={<ChevronRight className="h-4 w-4" />}
-                            onClick={onNext}
+                            onClick={() => {
+                                onSubmitDraft({ firstName, lastName, mobile, nationality, relationship });
+                                onNext();
+                            }}
                         >
                             Submit
                         </Button>

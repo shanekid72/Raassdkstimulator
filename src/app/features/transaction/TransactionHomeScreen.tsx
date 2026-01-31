@@ -4,10 +4,13 @@ import { Header } from "@/app/ui/Header";
 import { Input } from "@/app/ui/Input";
 import { ArrowDown, Search } from "lucide-react";
 import { motion } from "framer-motion";
+import { useSimulator } from "@/app/simulator/SimulatorStore";
+import { Skeleton } from "@/app/ui/Skeleton";
 
 interface TransactionHomeScreenProps {
     onBack: () => void;
     onStart: () => void;
+    onSelectRecipient?: (name: string) => void;
     amount: string;
     onAmountChange: (value: string) => void;
 }
@@ -24,17 +27,58 @@ const listItem = {
     show: { opacity: 1, y: 0 }
 };
 
-export default function TransactionHomeScreen({ onBack, onStart, amount, onAmountChange }: TransactionHomeScreenProps) {
+const formatHistoryLabel = (isoDate: string) => {
+    const date = new Date(isoDate);
+    if (Number.isNaN(date.getTime())) return "Recent";
+    const today = new Date();
+    const todayLabel = today.toDateString();
+    if (date.toDateString() === todayLabel) {
+        return `Today, ${date.toLocaleDateString("en-US", { day: "numeric", month: "short" })}`;
+    }
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    if (date.toDateString() === yesterday.toDateString()) {
+        return `Yesterday, ${date.toLocaleDateString("en-US", { day: "numeric", month: "short" })}`;
+    }
+    return date.toLocaleDateString("en-US", { day: "numeric", month: "short" });
+};
+
+const formatAmount = (value: number) =>
+    value.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+const getInitials = (name: string) => {
+    const parts = name.split(" ").filter(Boolean);
+    if (parts.length === 0) return "R";
+    return parts.map((part) => part[0]).join("").toUpperCase();
+};
+
+export default function TransactionHomeScreen({ onBack, onStart, onSelectRecipient, amount, onAmountChange }: TransactionHomeScreenProps) {
+    const { recipients, transactions, isBootstrapping } = useSimulator();
     const handleAmountChange = (event: ChangeEvent<HTMLInputElement>) => {
         const raw = event.target.value.replace(/[^0-9.]/g, "");
         onAmountChange(raw);
     };
 
     const numericAmount = parseFloat(amount);
+    const isValidAmount = Boolean(amount) && Number.isFinite(numericAmount) && numericAmount > 0;
     const displayAmount = Number.isFinite(numericAmount) ? numericAmount.toFixed(2) : amount || "0.00";
     const receiveAmount = Number.isFinite(numericAmount)
         ? (numericAmount * HOME_RATE_VALUE).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
         : "0.00";
+    const hasRecipients = recipients.length > 0;
+    const previewRecipients = hasRecipients
+        ? recipients.slice(0, 3).map((recipient) => {
+            const name = `${recipient.firstName} ${recipient.lastName}`.trim() || recipient.mobile || "Recipient";
+            return { name, initials: getInitials(name) };
+        })
+        : [
+            { name: "Lara Khan", initials: "LK" },
+            { name: "Meri Jhone", initials: "MJ" },
+            { name: "Jordan Lee", initials: "JL" },
+        ];
+    const hasTransactions = transactions.length > 0;
+    const historyItems = hasTransactions ? transactions.slice(0, 2) : [];
+    const historyLabel = hasTransactions ? formatHistoryLabel(historyItems[0].createdAt) : "Today, 23rd Jan";
 
     return (
         <div className="flex flex-col h-full bg-background">
@@ -84,7 +128,7 @@ export default function TransactionHomeScreen({ onBack, onStart, amount, onAmoun
                 </div>
 
                 <div>
-                    <Button className="w-full" size="lg" onClick={onStart} disabled={!amount || !Number.isFinite(numericAmount) || numericAmount <= 0}>
+                    <Button className="w-full" size="lg" onClick={onStart} disabled={!isValidAmount}>
                         Send {displayAmount} AED
                     </Button>
                 </div>
@@ -99,18 +143,29 @@ export default function TransactionHomeScreen({ onBack, onStart, amount, onAmoun
                             <button className="h-12 w-12 rounded-2xl bg-muted flex items-center justify-center text-xl font-semibold text-muted-foreground">+</button>
                             <span className="text-[10px] text-muted-foreground">Add</span>
                         </div>
-                        {[
-                            { name: "Lara Khan", initials: "LK" },
-                            { name: "Meri Jhone", initials: "MJ" },
-                            { name: "Jordan Lee", initials: "JL" },
-                        ].map((item) => (
-                            <motion.div key={item.name} variants={listItem} className="flex flex-col items-center gap-1">
-                                <div className="h-12 w-12 rounded-2xl bg-background border border-border shadow-[0_1px_0_rgba(0,0,0,0.02)] flex items-center justify-center text-sm font-semibold">
-                                    {item.initials}
+                        {isBootstrapping ? (
+                            Array.from({ length: 3 }).map((_, index) => (
+                                <div key={`recipient-preview-skeleton-${index}`} className="flex flex-col items-center gap-1">
+                                    <Skeleton className="h-12 w-12 rounded-2xl" />
+                                    <Skeleton className="h-2 w-12 rounded-full" />
                                 </div>
-                                <span className="text-[10px] text-muted-foreground">{item.name}</span>
-                            </motion.div>
-                        ))}
+                            ))
+                        ) : (
+                            previewRecipients.map((item) => (
+                                <motion.button
+                                    key={item.name}
+                                    variants={listItem}
+                                    className={`flex flex-col items-center gap-1 ${!isValidAmount ? "opacity-50 cursor-not-allowed" : ""}`}
+                                    disabled={!isValidAmount}
+                                    onClick={() => isValidAmount && onSelectRecipient?.(item.name)}
+                                >
+                                    <div className="h-12 w-12 rounded-2xl bg-background border border-border shadow-[0_1px_0_rgba(0,0,0,0.02)] flex items-center justify-center text-sm font-semibold">
+                                        {item.initials}
+                                    </div>
+                                    <span className="text-[10px] text-muted-foreground">{item.name}</span>
+                                </motion.button>
+                            ))
+                        )}
                     </motion.div>
                 </div>
 
@@ -120,24 +175,56 @@ export default function TransactionHomeScreen({ onBack, onStart, amount, onAmoun
                         <button className="text-muted-foreground text-xs">See all</button>
                     </div>
                     <div className="bg-background rounded-2xl border border-border p-4 space-y-4">
-                        <div className="text-xs text-muted-foreground">Today, 23rd Jan</div>
+                        <div className="text-xs text-muted-foreground">{historyLabel}</div>
                         <motion.div className="space-y-4" variants={listContainer} initial="hidden" animate="show">
-                        {[
-                            { from: "Lara Khan", to: "Mandy Ahmad" },
-                            { from: "Jordan Lee", to: "Mandy Ahmad" },
-                        ].map((row, index) => (
-                            <motion.div key={`${row.from}-${index}`} variants={listItem} className="flex items-center justify-between">
-                                <div>
-                                    <div className="text-sm font-semibold text-foreground">{row.from}</div>
-                                    <div className="text-xs text-muted-foreground">{row.to}</div>
-                                    <div className="text-xs text-muted-foreground mt-1">Repeat</div>
-                                </div>
-                                <div className="text-right">
-                                    <div className="text-sm font-semibold text-foreground">95.50 AED</div>
-                                    <div className="text-xs text-muted-foreground">Completed</div>
-                                </div>
-                            </motion.div>
-                        ))}
+                            {isBootstrapping ? (
+                                Array.from({ length: 2 }).map((_, index) => (
+                                    <div key={`history-skeleton-${index}`} className="flex items-center justify-between">
+                                        <div className="space-y-2">
+                                            <Skeleton className="h-3 w-28" />
+                                            <Skeleton className="h-3 w-32" />
+                                            <Skeleton className="h-3 w-12" />
+                                        </div>
+                                        <div className="space-y-2 text-right">
+                                            <Skeleton className="h-3 w-16 ml-auto" />
+                                            <Skeleton className="h-3 w-14 ml-auto" />
+                                        </div>
+                                    </div>
+                                ))
+                            ) : (
+                                (hasTransactions
+                                    ? historyItems.map((tx) => (
+                                        <motion.div key={tx.id} variants={listItem} className="flex items-center justify-between">
+                                            <div>
+                                                <div className="text-sm font-semibold text-foreground">{tx.recipientName || "Recipient"}</div>
+                                                <div className="text-xs text-muted-foreground">
+                                                    Receive {formatAmount(tx.receiveAmount)} {tx.receiveCurrencyCode}
+                                                </div>
+                                                <div className="text-xs text-muted-foreground mt-1">Repeat</div>
+                                            </div>
+                                            <div className="text-right">
+                                                <div className="text-sm font-semibold text-foreground">{formatAmount(tx.amountAED)} AED</div>
+                                                <div className="text-xs text-muted-foreground">Completed</div>
+                                            </div>
+                                        </motion.div>
+                                    ))
+                                    : [
+                                        { from: "Lara Khan", to: "Mandy Ahmad" },
+                                        { from: "Jordan Lee", to: "Mandy Ahmad" },
+                                    ].map((row, index) => (
+                                        <motion.div key={`${row.from}-${index}`} variants={listItem} className="flex items-center justify-between">
+                                            <div>
+                                                <div className="text-sm font-semibold text-foreground">{row.from}</div>
+                                                <div className="text-xs text-muted-foreground">{row.to}</div>
+                                                <div className="text-xs text-muted-foreground mt-1">Repeat</div>
+                                            </div>
+                                            <div className="text-right">
+                                                <div className="text-sm font-semibold text-foreground">95.50 AED</div>
+                                                <div className="text-xs text-muted-foreground">Completed</div>
+                                            </div>
+                                        </motion.div>
+                                    )))
+                            )}
                         </motion.div>
                     </div>
                 </div>

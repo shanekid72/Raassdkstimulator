@@ -1,10 +1,7 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/app/ui/Button";
-
-// Image path: C:/Users/786000726/.gemini/antigravity/brain/81c36b68-02e7-444f-8f30-ba47f0aaa702/onboarding_success_3d_1769703475115.png
-// Accessing via absolute path for simulator
-import successImage from "/@fs/C:/Users/786000726/.gemini/antigravity/brain/81c36b68-02e7-444f-8f30-ba47f0aaa702/onboarding_success_3d_1769703475115.png";
+import AlmostThereLoader from "@/app/ui/AlmostThereLoader";
 
 interface ProcessingScreenProps {
     onComplete: () => void;
@@ -57,18 +54,9 @@ export default function ProcessingScreen({ onComplete, onNotify }: ProcessingScr
                 className="bg-background rounded-[20px] border border-border p-6 flex-1 flex flex-col items-center justify-center text-center relative overflow-hidden"
             >
 
-                {/* Illustration */}
-                <div className="mb-8 relative w-64 h-64">
-                    <motion.div
-                        className="absolute inset-0 rounded-full border-2 border-foreground/15"
-                        animate={{ scale: [0.95, 1.05, 0.95], opacity: [0.4, 0.8, 0.4] }}
-                        transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-                    />
-                    <img
-                        src={successImage}
-                        alt="Almost There Illustration"
-                        className="w-full h-full object-contain"
-                    />
+                {/* Loader */}
+                <div className="mb-8 flex items-center justify-center">
+                    <AlmostThereLoader className="text-foreground" />
                 </div>
 
                 <h1 className="text-2xl font-bold text-foreground mb-3">Almost There!</h1>

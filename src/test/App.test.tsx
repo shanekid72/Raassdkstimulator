@@ -1,11 +1,17 @@
-﻿import { render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import App from "@/app/App";
+import { SimulatorProvider } from "@/app/simulator/SimulatorStore";
 
 describe("App", () => {
-  it("renders the landing flow selection", () => {
-    render(<App />);
+  it("renders the home screen with navigation options", () => {
+    render(
+      <SimulatorProvider>
+        <App />
+      </SimulatorProvider>
+    );
+    // The app defaults to the home screen which shows a "Verify" button
     expect(
-      screen.getByRole("button", { name: /start onboarding/i })
+      screen.getAllByRole("button", { name: /verify/i })[0]
     ).toBeInTheDocument();
   });
 });

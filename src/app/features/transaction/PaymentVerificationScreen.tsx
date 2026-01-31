@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "@/app/ui/Button";
 import { Header } from "@/app/ui/Header";
 import { Input } from "@/app/ui/Input";
@@ -8,6 +9,8 @@ interface PaymentVerificationScreenProps {
 }
 
 export default function PaymentVerificationScreen({ onBack, onSubmit }: PaymentVerificationScreenProps) {
+    const [secureCode, setSecureCode] = useState("");
+
     return (
         <div className="flex flex-col h-full bg-background">
             <Header title="Payment Method" onBack={onBack} />
@@ -18,7 +21,13 @@ export default function PaymentVerificationScreen({ onBack, onSubmit }: PaymentV
                     <div className="text-xs text-muted-foreground">Enter your Secure code</div>
                 </div>
 
-                <Input placeholder="" />
+                <Input
+                    id="secureCode"
+                    label="Secure Code"
+                    value={secureCode}
+                    onChange={(e) => setSecureCode(e.target.value)}
+                    onEnter={onSubmit}
+                />
 
                 <Button className="w-full" size="lg" onClick={onSubmit}>
                     Submit

@@ -1,10 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './app/App'
-import './styles/index.css' // Assuming there is a global css file, adjusting if needed.
+import { SimulatorProvider } from './app/simulator/SimulatorStore'
+import './styles/index.css'
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+// Standalone mode: add class to root for styling
+const rootElement = document.getElementById('root')!;
+rootElement.classList.add('raas-standalone');
+
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
-    <App />
+    <SimulatorProvider>
+      <App />
+    </SimulatorProvider>
   </React.StrictMode>,
 )

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Button } from "@/app/ui/Button";
 import { motion } from "framer-motion";
 import { Check, Receipt } from "lucide-react";
-import confetti from "canvas-confetti";
+import { fireConfetti } from "@/app/lib/confetti";
 
 interface TransactionSuccessScreenProps {
     onHome: () => void;
@@ -12,12 +12,7 @@ interface TransactionSuccessScreenProps {
 export default function TransactionSuccessScreen({ onHome, amount }: TransactionSuccessScreenProps) {
 
     useEffect(() => {
-        confetti({
-            particleCount: 150,
-            spread: 90,
-            origin: { y: 0.6 },
-            colors: ['#0b0b0c', '#f5f5f5', '#ffffff']
-        });
+        fireConfetti();
     }, []);
 
     return (

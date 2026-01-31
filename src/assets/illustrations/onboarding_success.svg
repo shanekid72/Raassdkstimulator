@@ -1,0 +1,24 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="blobGradient" x1="32" y1="28" x2="220" y2="232" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#E7E9EE"/>
+      <stop offset="1" stop-color="#C9CED9"/>
+    </linearGradient>
+    <linearGradient id="checkGradient" x1="96" y1="92" x2="168" y2="172" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.95"/>
+      <stop offset="1" stop-color="#E4E8F0" stop-opacity="0.95"/>
+    </linearGradient>
+  </defs>
+  <path d="M176.5 32.4C208.2 44.5 232.7 75.9 236.7 109.7C240.7 143.6 224.2 180.1 196.6 201.9C169 223.7 130.4 230.8 96.1 219.6C61.7 208.4 31.6 178.9 23.8 144C16 109.1 30.5 68.8 61.7 48.4C92.9 28 140.7 20.3 176.5 32.4Z" fill="url(#blobGradient)"/>
+  <g opacity="0.9">
+    <circle cx="128" cy="128" r="46" fill="url(#checkGradient)"/>
+    <circle cx="128" cy="128" r="46" stroke="#D6D9E2" stroke-width="1"/>
+    <path d="M112 128.5L123.5 140L145 118" stroke="#8E96A6" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g opacity="0.6" fill="#EEF1F6">
+    <circle cx="72" cy="88" r="4"/>
+    <circle cx="186" cy="78" r="3"/>
+    <circle cx="198" cy="150" r="4"/>
+    <circle cx="66" cy="166" r="3"/>
+  </g>
+</svg>

@@ -4,15 +4,25 @@ import { Input } from "@/app/ui/Input";
 import { Button } from "@/app/ui/Button";
 import { Card, CardContent } from "@/app/ui/Card";
 import { ChevronRight, Landmark } from "lucide-react";
+import { RecipientDraft } from "@/app/simulator/SimulatorStore";
 
 interface RecipientDetailsScreenProps {
     onBack: () => void;
     onNext: () => void;
+    onSubmitDraft: (partial: Partial<RecipientDraft>) => Promise<void> | void;
 }
 
-export default function RecipientDetailsScreen({ onBack, onNext }: RecipientDetailsScreenProps) {
+export default function RecipientDetailsScreen({ onBack, onNext, onSubmitDraft }: RecipientDetailsScreenProps) {
     const [accountNumber, setAccountNumber] = useState("0000123456");
     const [ifsc, setIfsc] = useState("IDFB0080172");
+    const handleConfirm = async () => {
+        try {
+            await onSubmitDraft({ accountNumber, ifsc });
+            onNext();
+        } catch {
+            // Errors are handled by parent; stay on the same screen.
+        }
+    };
 
     return (
         <div className="flex flex-col h-full bg-background">
@@ -36,9 +46,11 @@ export default function RecipientDetailsScreen({ onBack, onNext }: RecipientDeta
                         <div className="text-sm font-semibold text-foreground">Recipient Bank Details</div>
 
                         <Input
+                            id="accountNumber"
                             label="Account Number"
                             value={accountNumber}
                             onChange={(event) => setAccountNumber(event.target.value)}
+                            nextFieldId="ifsc"
                         />
 
                         <div className="space-y-2">
@@ -47,8 +59,10 @@ export default function RecipientDetailsScreen({ onBack, onNext }: RecipientDeta
                                 <button className="text-xs text-muted-foreground">Change IFSC Code</button>
                             </div>
                             <Input
+                                id="ifsc"
                                 value={ifsc}
                                 onChange={(event) => setIfsc(event.target.value)}
+                                onEnter={handleConfirm}
                             />
                         </div>
 
@@ -69,7 +83,7 @@ export default function RecipientDetailsScreen({ onBack, onNext }: RecipientDeta
                     className="w-full"
                     size="lg"
                     rightIcon={<ChevronRight className="h-4 w-4" />}
-                    onClick={onNext}
+                    onClick={handleConfirm}
                 >
                     Confirm and Continue
                 </Button>

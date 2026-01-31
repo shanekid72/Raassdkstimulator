@@ -1,11 +1,17 @@
-﻿import { Button } from "@/app/ui/Button";
+import { useEffect } from "react";
+import { Button } from "@/app/ui/Button";
 import { Check } from "lucide-react";
+import { fireConfetti } from "@/app/lib/confetti";
 
 interface TransferSuccessReceiptScreenProps {
     onHome: () => void;
 }
 
 export default function TransferSuccessReceiptScreen({ onHome }: TransferSuccessReceiptScreenProps) {
+    useEffect(() => {
+        fireConfetti();
+    }, []);
+
     return (
         <div className="flex flex-col h-full bg-background items-center justify-center p-8 text-center">
             <div className="w-20 h-20 rounded-full bg-foreground flex items-center justify-center mb-6">

@@ -1,4 +1,4 @@
-﻿import { useEffect, useRef } from "react";
+import { useEffect, useId, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
@@ -20,6 +20,7 @@ const focusableSelector =
 export function Modal({ open, onClose, title, children, footer, className }: ModalProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const portalTarget = typeof document !== "undefined" ? document.getElementById("phone-frame") : null;
+    const titleId = useId();
 
     useEffect(() => {
         if (!open) return;
@@ -63,6 +64,7 @@ export function Modal({ open, onClose, title, children, footer, className }: Mod
                     exit={{ opacity: 0 }}
                     aria-modal="true"
                     role="dialog"
+                    aria-labelledby={title ? titleId : undefined}
                     onClick={onClose}
                 >
                     <motion.div
@@ -78,7 +80,7 @@ export function Modal({ open, onClose, title, children, footer, className }: Mod
                         onClick={(event) => event.stopPropagation()}
                     >
                         <div className="flex items-center justify-between border-b border-border px-5 py-4">
-                            <div className="text-sm font-semibold text-foreground">{title}</div>
+                            <div id={titleId} className="text-sm font-semibold text-foreground">{title}</div>
                             <Button
                                 variant="ghost"
                                 size="icon"

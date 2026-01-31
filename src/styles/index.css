@@ -72,7 +72,42 @@ body {
 }
 
 .world-app-bg {
-    background-color: #ffffff;
-    background-image: radial-gradient(rgba(11, 11, 12, 0.08) 1px, transparent 1px);
-    background-size: 18px 18px;
+    background-color: var(--background);
+    background-image: none;
+}
+
+/* Base resets - safe for embedding */
+html,
+body,
+#root {
+    margin: 0;
+    padding: 0;
+    overscroll-behavior: none;
+}
+
+/* Standalone mode styles - only apply when running as standalone app */
+.raas-standalone {
+    height: 100%;
+    width: 100%;
+    background-color: #1a1a1a;
+    overflow: hidden;
+}
+
+/* When #root has standalone class, apply full height to html/body */
+html:has(#root.raas-standalone),
+html:has(#root.raas-standalone) body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-color: #1a1a1a;
+}
+
+/* Utility to hide scrollbars in the phone frame (Chrome/Safari/Opera & Firefox/IE/Edge) */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }

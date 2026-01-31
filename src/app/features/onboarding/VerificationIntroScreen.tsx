@@ -1,6 +1,9 @@
 import { Button } from "@/app/ui/Button";
 import { ShieldCheck, UserCheck } from "lucide-react";
 import { motion } from "framer-motion";
+import uaePassButton from "../../../../UAEPASS_Continue with_Btn_Pill_Black_Active.png";
+import verifiedBadge from "../../../../verified3.png";
+import verifiedBadgeTransparent from "../../../../verified3-transparent.png";
 
 interface VerificationIntroScreenProps {
     onNext: () => void;
@@ -20,12 +23,29 @@ export default function VerificationIntroScreen({ onNext, onLogin }: Verificatio
                     className="w-full relative"
                 >
                     {/* Simple vector illustration placeholder matching the vibe */}
-                    <div className="w-64 h-64 mx-auto bg-muted rounded-full flex items-center justify-center border border-border relative">
+                    <div className="w-64 h-64 mx-auto bg-transparent rounded-full flex items-center justify-center border border-border relative">
                         <div className="absolute inset-4 border border-dashed border-border rounded-full animate-[spin_10s_linear_infinite]" />
-                        <ShieldCheck className="w-24 h-24 text-foreground/20" />
+                        {/* <ShieldCheck className="w-24 h-24 text-foreground/20" /> */}
+                        <img
+                            src={verifiedBadgeTransparent}
+                            alt="Verified"
+                            className="h-40 w-40 object-contain"
+                        />
+                        {/* <img
+                            src={verifiedBadge}
+                            alt="Verified"
+                            className="h-40 w-40 object-contain"
+                        /> */}
                         <div className="absolute bottom-4 right-10 bg-background p-2 rounded-xl border border-border">
                             <UserCheck className="w-8 h-8 text-foreground" />
                         </div>
+                        {/* <div className="absolute bottom-4 right-10 bg-background p-2 rounded-xl border border-border">
+                            <img
+                                src={verifiedBadge}
+                                alt="Verified"
+                                className="h-8 w-8 object-contain"
+                            />
+                        </div> */}
                     </div>
                 </motion.div>
 
@@ -41,12 +61,24 @@ export default function VerificationIntroScreen({ onNext, onLogin }: Verificatio
             </main>
 
             <div className="space-y-4 mt-auto">
-                <Button className="w-full h-12 text-base font-medium" size="lg" onClick={onNext}>
+                <p className="text-xs text-muted-foreground text-center">Choose a verification method</p>
+                <Button className="w-full h-12 text-base font-medium" size="lg" variant="secondary" onClick={onNext}>
                     Get Verified
                 </Button>
-                <Button className="w-full h-12 text-base font-medium" size="lg" variant="secondary" onClick={onLogin}>
-                    Login with UAE PASS
-                </Button>
+                <p className="text-xs text-muted-foreground text-center my-2">or</p>
+                {/* UAE PASS button - standalone per brand guidelines, no wrapper styling */}
+                <button
+                    type="button"
+                    onClick={onLogin}
+                    aria-label="Continue with UAE PASS"
+                    className="w-full focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring rounded-full"
+                >
+                    <img
+                        src={uaePassButton}
+                        alt="Continue with UAE PASS"
+                        className="h-12 w-full object-contain"
+                    />
+                </button>
             </div>
         </div>
     );

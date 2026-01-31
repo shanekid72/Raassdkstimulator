@@ -15,7 +15,7 @@ const PURPOSES = [
     "Savings",
     "Travel Expenses",
     "Salary",
-    "Savings",
+    "Family Support",
 ];
 
 export default function TransferPurposeScreen({ onBack, onConfirm }: TransferPurposeScreenProps) {

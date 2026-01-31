@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Button } from "@/app/ui/Button";
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
-import confetti from "canvas-confetti";
+import { fireConfetti } from "@/app/lib/confetti";
 
 interface OnboardingSuccessScreenProps {
     onComplete: () => void;
@@ -11,13 +11,7 @@ interface OnboardingSuccessScreenProps {
 export default function OnboardingSuccessScreen({ onComplete }: OnboardingSuccessScreenProps) {
 
     useEffect(() => {
-        // Trigger confetti on mount
-        confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 },
-            colors: ['#000000', '#444444', '#ffffff'] // Monochrome confetti
-        });
+        fireConfetti();
     }, []);
 
     return (

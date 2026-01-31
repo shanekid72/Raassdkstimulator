@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 interface SelectCountryCurrencyScreenProps {
     onBack: () => void;
     onSelect: () => void;
+    onSelectCountryCurrency: (country: string, currencyCode: string) => void;
 }
 
 const COUNTRIES = [
@@ -18,7 +19,7 @@ const COUNTRIES = [
     { country: "Philippines", currency: "US Dollar", code: "USD", flag: "PH" },
 ];
 
-export default function SelectCountryCurrencyScreen({ onBack, onSelect }: SelectCountryCurrencyScreenProps) {
+export default function SelectCountryCurrencyScreen({ onBack, onSelect, onSelectCountryCurrency }: SelectCountryCurrencyScreenProps) {
     const [query, setQuery] = useState("");
     const listContainer = {
         hidden: {},
@@ -38,12 +39,14 @@ export default function SelectCountryCurrencyScreen({ onBack, onSelect }: Select
         <div className="flex flex-col h-full bg-background">
             <BottomSheet open onClose={onBack} title="Select Country and Currency">
                 <div className="space-y-4">
-                    <Input
-                        placeholder="Search"
-                        value={query}
-                        onChange={(event) => setQuery(event.target.value)}
-                        leadingIcon={<Search className="h-4 w-4" />}
-                    />
+                    <div className="sticky top-[72px] z-10 bg-background pt-2 pb-3">
+                        <Input
+                            placeholder="Search"
+                            value={query}
+                            onChange={(event) => setQuery(event.target.value)}
+                            leadingIcon={<Search className="h-4 w-4" />}
+                        />
+                    </div>
 
                     <motion.div
                         className="divide-y divide-border rounded-2xl border border-border bg-background"
@@ -56,7 +59,10 @@ export default function SelectCountryCurrencyScreen({ onBack, onSelect }: Select
                                 key={`${item.country}-${item.currency}-${item.code}`}
                                 variants={listItem}
                                 className="w-full flex items-center justify-between px-4 py-4 text-left"
-                                onClick={onSelect}
+                                onClick={() => {
+                                    onSelectCountryCurrency(item.country, item.code);
+                                    onSelect();
+                                }}
                             >
                                 <div className="flex items-center gap-3">
                                     <div className="h-8 w-8 rounded-full bg-muted text-muted-foreground flex items-center justify-center text-xs font-semibold">

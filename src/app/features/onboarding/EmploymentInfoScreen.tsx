@@ -40,18 +40,23 @@ export default function EmploymentInfoScreen({ onBack, onNext }: EmploymentInfoS
 
                         <div className="flex-1 overflow-y-auto space-y-4">
                             <Input
+                                id="sector"
                                 label="Employment Sector"
                                 value={formData.sector}
                                 onChange={(e) => handleChange("sector", e.target.value)}
+                                nextFieldId="employerName"
                             />
 
                             <Input
+                                id="employerName"
                                 label="Employer Name"
                                 value={formData.employerName}
                                 onChange={(e) => handleChange("employerName", e.target.value)}
+                                nextFieldId="employerAddress"
                             />
 
                             <Input
+                                id="employerAddress"
                                 label="Employer Address"
                                 value={formData.employerAddress}
                                 onChange={(e) => handleChange("employerAddress", e.target.value)}
